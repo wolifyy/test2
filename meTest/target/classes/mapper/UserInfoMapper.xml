@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.me.test.mapper.UserInfoMapper">
+
+    <insert id="add" parameterType="UserInfo">
+        insert into metest.userinfo (username, password, authority)
+         values (#{username},#{password},#{authority});
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        delete from metest.userinfo where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="UserInfo">
+        update metest.userinfo set username=#{username},password=#{password},authority=#{authority}
+        where id=#{id};
+    </update>
+
+    <select id="queryById" parameterType="Integer" resultType="UserInfo">
+        select * from metest.userinfo where id=#{id};
+    </select>
+
+    <select id="queryAll" resultType="UserInfo">
+        select * from metest.userinfo;
+    </select>
+
+    <select id="queryByPage" parameterType="java.util.Map" resultType="UserInfo">
+        select id,username,password,authority from metest.userinfo
+        <include refid="whereClause"/>
+        <include refid="orderByClause"/>
+        <include refid="limitClause"/>
+    </select>
+
+    <select id="queryTotal" resultType="Integer">
+        select count(*) from metest.userinfo;
+    </select>
+
+    <select id="selectUser" parameterType="String" resultType="Integer">
+        select count(*) from metest.userinfo where username=#{username};
+    </select>
+
+    <sql id="whereClause">
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test='searchCondition.id !=null and searchCondition.id != ""'>
+              AND id = #{searchCondition.id}
+            </if>
+            <if test='searchCondition.username !=null and searchCondition.username != ""'>
+                AND username = #{searchCondition.username}
+            </if>
+            <if test='searchCondition.password !=null and searchCondition.password != ""'>
+                AND password = #{searchCondition.password}
+            </if>
+            <if test='searchCondition.authority !=null and searchCondition.authority != ""'>
+                AND authority = #{searchCondition.authority}
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="orderByClause">
+        <if test="sorter != null and sorter.column != null and sorter.column != ''">
+            order by ${sorter.column} ${sorter.order}
+        </if>
+    </sql>
+
+    <sql id="limitClause">
+        limit #{page.currentItem},#{page.pageSize}
+    </sql>
+
+</mapper>
