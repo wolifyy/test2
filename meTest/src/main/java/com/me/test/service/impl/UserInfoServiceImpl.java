@@ -130,17 +130,17 @@ public class UserInfoServiceImpl implements UserInfoService {
                 /**
                  * 判断单元格类型是否为文本类型
                  */
-                if(1 != row.getCell(0).getCellType()){
-//                    throw new MyException("单元格类型不是文本类型！");
-                    continue;
-                }
+//                if(1 != row.getCell(0).getCellType()){
+////                    throw new MyException("单元格类型不是文本类型！");
+//                    continue;
+//                }
 
                 /**
                  * 获取第一个单元格的内容
                  */
                 String username = row.getCell(0).getStringCellValue();
 
-                row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
+//                row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
                 /**
                  * 获取第二个单元格的内容
                  */

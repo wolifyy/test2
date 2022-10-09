@@ -7,6 +7,7 @@ import com.me.test.Model.*;
 import com.me.test.pojo.UserInfo;
 import com.me.test.service.UserInfoService;
 import com.me.test.util.ExcelUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -100,8 +101,8 @@ public class UserInfoController {
 
     @PostMapping("/importExcel")
     @ResponseBody
-    public Boolean addUserInfo(@RequestBody MultipartFile file) throws Exception {
-        return userInfoService.addUserInfo(file);
+    public Boolean addUserInfo(@RequestBody MultipartFile filee) throws Exception {
+        return userInfoService.addUserInfo(filee);
     }
 
     /**

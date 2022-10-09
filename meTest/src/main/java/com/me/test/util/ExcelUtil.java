@@ -1,6 +1,7 @@
 package com.me.test.util;
 
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 
 /**
  * 人一能之,己百之；人十能之,己千之。果能此道矣,虽愚必明,虽柔必强。
@@ -12,12 +13,13 @@ import org.apache.poi.hssf.usermodel.*;
 public class ExcelUtil {
     /**
      * 导出Excel
+     *
      * @param sheetName sheet名称
-     * @param title 标题
-     * @param values 内容
+     * @param title     标题
+     * @param values    内容
      * @return
      */
-    public static HSSFWorkbook getHSSFWorkbook(String sheetName, String []title, String [][]values){
+    public static HSSFWorkbook getHSSFWorkbook(String sheetName, String[] title, String[][] values) {
 
         // 第一步，创建一个HSSFWorkbook，对应一个Excel文件
         HSSFWorkbook wb = new HSSFWorkbook();
@@ -30,13 +32,13 @@ public class ExcelUtil {
 
         // 第四步，创建单元格样式，并设置值表头 设置表头居中
         HSSFCellStyle style = wb.createCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式
+        style.setAlignment(HorizontalAlignment.CENTER); // 创建一个居中格式
 
         //声明单元格
         HSSFCell cell = null;
 
         //创建标题
-        for(int i=0;i<title.length;i++){
+        for (int i = 0; i < title.length; i++) {
             //创建一个单元格
             cell = row.createCell(i);
             //给单元格赋值
@@ -46,11 +48,11 @@ public class ExcelUtil {
         }
 
         //创建内容
-        if (values != null && values[0].length > 0){
-            for(int i=0;i<values.length;i++){
+        if (values != null && values[0].length > 0) {
+            for (int i = 0; i < values.length; i++) {
                 //从第二行开始创建数据填充的行，下标为1
                 row = sheet.createRow(i + 1);
-                for(int j=0;j<values[i].length;j++){
+                for (int j = 0; j < values[i].length; j++) {
                     //将内容按顺序赋给对应的列对象
                     row.createCell(j).setCellValue(values[i][j]);
                 }
