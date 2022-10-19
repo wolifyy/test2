@@ -30,6 +30,9 @@ public interface UserInfoMapper {
      */
     void delete(Integer id);
 
+
+    void deleteAll();
+
     /**
      * 修改一条数据
      * @param userInfo 修改的数据

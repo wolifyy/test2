@@ -30,7 +30,7 @@ public class FrameworkElementController {
 
     //Get请求
     @GetMapping
-    //@ResponseBody 注释后表示放回的是字符串
+    //@ResponseBody 注后表示放回的是字符串
     @ResponseBody
     public String queryAll(){
         List<FrameworkElement> userInfoList = frameworkElementService.queryAll();

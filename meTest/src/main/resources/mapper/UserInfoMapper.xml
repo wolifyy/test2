@@ -6,12 +6,16 @@
 <mapper namespace="com.me.test.mapper.UserInfoMapper">
 
     <insert id="add" parameterType="UserInfo">
-        insert into metest.userinfo (username, password, authority)
-         values (#{username},#{password},#{authority});
+        insert into metest.userinfo (username, password, authority,useId)
+         values (#{username},#{password},#{authority},#{userId});
     </insert>
 
     <delete id="delete" parameterType="Integer">
         delete from metest.userinfo where id = #{id};
+    </delete>
+
+    <delete id="deleteAll">
+        delete from metest.userinfo;
     </delete>
 
     <update id="update" parameterType="UserInfo">
@@ -48,7 +52,7 @@
               AND id = #{searchCondition.id}
             </if>
             <if test='searchCondition.username !=null and searchCondition.username != ""'>
-                AND username = #{searchCondition.username}
+                AND username like CONCAT('%',#{searchCondition.username},'%')
             </if>
             <if test='searchCondition.password !=null and searchCondition.password != ""'>
                 AND password = #{searchCondition.password}

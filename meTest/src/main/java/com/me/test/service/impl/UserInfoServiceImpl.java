@@ -147,30 +147,36 @@ public class UserInfoServiceImpl implements UserInfoService {
 
                 String password = row.getCell(1).getStringCellValue();
                 String authority = row.getCell(2).getStringCellValue();
+                Long userId = (long)row.getCell(3).getNumericCellValue();
 
                 userInfo.setUsername(username);
                 userInfo.setPassword(password);
                 userInfo.setAuthority(authority);
+                userInfo.setUserId(userId);
                 userInfoList.add(userInfo);
 
             }
 
+            userInfoMapper.deleteAll();
             for(UserInfo userInfo:userInfoList){
 
                 /**
                  * 判断数据库表中是否存在用户记录，若存在，则更新，不存在，则保存记录
                  */
-                String username = userInfo.getUsername();
+//                String username = userInfo.getUsername();
+//
+//                int count = userInfoMapper.selectUser(username);
+//
+//                if(0 == count){
+//                    userInfoMapper.add(userInfo);
+//                    result = true;
+//                }else{
+//                    userInfoMapper.update(userInfo);
+//                    result = true;
+//                }
+                userInfoMapper.add(userInfo);
+                result = true;
 
-                int count = userInfoMapper.selectUser(username);
-
-                if(0 == count){
-                    userInfoMapper.add(userInfo);
-                    result = true;
-                }else{
-                    userInfoMapper.update(userInfo);
-                    result = true;
-                }
 
 
 

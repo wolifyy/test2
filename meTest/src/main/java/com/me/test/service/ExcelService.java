@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -75,8 +72,7 @@ public class ExcelService {
 
     private List<Map<String, Object>> getResultData() {
 
-        String data = "[{\"orderTime\":\"2021-03-03 10:10:10\",\"total\":55,\"except\":12,\"overTime\":8,\"timelyRate\":\"88%\",\"successRate\":\"77%\"},{\"orderTime\":\"2021-03-03 10:15:10\",\"total\":155,\"except\":44,\"overTime\":20,\"timelyRate\":\"78%\",\"successRate\":\"65%\"},{\"orderTime\":\"2021-03-03 10:20:10\",\"total\":85,\"except\":6,\"overTime\":5,\"timelyRate\":\"98%\",\"successRate\":\"97%\"}]";
-
+        String data = "[{\"orderTime\":\"2021-03-03 10:10:10\",\"total\":55,\"except\":12,\"overTime\":8,\"timelyRate\":\"88\",\"successRate\":\"77\"},{\"orderTime\":\"2021-03-03 10:15:10\",\"total\":155,\"except\":44,\"overTime\":20,\"timelyRate\":\"78\",\"successRate\":\"65\"},{\"orderTime\":\"2021-03-03 10:20:10\",\"total\":85,\"except\":6,\"overTime\":5,\"timelyRate\":\"98%\",\"successRate\":\"97%\"}]";
         return new Gson().fromJson(data, new TypeToken<List<Map<String, Object>>>() {
         }.getType());
     }

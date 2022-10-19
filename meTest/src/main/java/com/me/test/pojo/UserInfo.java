@@ -24,5 +24,6 @@ public class UserInfo {
     private String username;
     private String password;
     private String authority;
+    private Long userId;
 }
 

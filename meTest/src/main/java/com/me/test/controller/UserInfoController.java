@@ -101,8 +101,8 @@ public class UserInfoController {
 
     @PostMapping("/importExcel")
     @ResponseBody
-    public Boolean addUserInfo(@RequestBody MultipartFile filee) throws Exception {
-        return userInfoService.addUserInfo(filee);
+    public Boolean addUserInfo(@RequestBody MultipartFile file) throws Exception {
+        return userInfoService.addUserInfo(file);
     }
 
     /**
@@ -122,10 +122,10 @@ public class UserInfoController {
         List<UserInfo> list = userInfoService.queryAll();
 
         //excel标题
-        String[] title = {"序号", "用户名", "密码", "权限"};
+        String[] title = {"序号", "用户名", "密码", "权限","用户"};
 
         //excel文件名
-        String fileName = System.currentTimeMillis() + ".xls";
+        String fileName = System.currentTimeMillis() + ".xlsx";
 
         //sheet名
         String sheetName = "用户信息";
