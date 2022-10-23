@@ -7,6 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
@@ -65,6 +66,7 @@ public class PoiMulExcelExporter {
     }
 
     private void createContent(HSSFSheet sheet, List<List<String>> content, int rownum) throws Exception {
+        sheet.addMergedRegion(new CellRangeAddress(1,3,0,0));
         for (List<String> lineData : content) {
             setSheetContent(sheet,lineData,rownum);
             rownum++;
