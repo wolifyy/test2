@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.me.test.util.ExcelMergedRegionUtil.getMergedRegionValue;
+import static com.me.test.util.ExcelMergedRegionUtil.isMergedRegion;
 
 /**
  * 人一能之,己百之；人十能之,己千之。果能此道矣,虽愚必明,虽柔必强。
@@ -146,7 +150,10 @@ public class UserInfoServiceImpl implements UserInfoService {
                  */
 
                 String password = row.getCell(1).getStringCellValue();
-                String authority = row.getCell(2).getStringCellValue();
+                String authority = "";
+                if(isMergedRegion(sheet,line,2)){
+                    authority = getMergedRegionValue(sheet,line,2);
+                }
                 Long userId = (long)row.getCell(3).getNumericCellValue();
 
                 userInfo.setUsername(username);
@@ -185,5 +192,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         return result;
     }
+
+
 }
 
