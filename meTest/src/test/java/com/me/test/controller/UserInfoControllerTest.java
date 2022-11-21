@@ -3,6 +3,11 @@ package com.me.test.controller;
 import com.google.gson.Gson;
 import com.me.test.Model.*;
 import org.junit.Test;
+import org.python.core.PyFunction;
+import org.python.core.PyInteger;
+import org.python.core.PyObject;
+import org.python.core.PyString;
+import org.python.util.PythonInterpreter;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -124,5 +129,52 @@ public class UserInfoControllerTest {
         System.out.println("main thread start cf2.get(),time->"+System.currentTimeMillis());
         System.out.println("run result->"+cf2.get());
         System.out.println("main thread exit,time->"+System.currentTimeMillis());
+    }
+
+    @Test
+    public void test6(){
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.execfile("E:\\python\\test.py");
+        PyFunction function = (PyFunction)interpreter.get("test",PyFunction.class);
+        PyObject o = function.__call__(new PyInteger(8),new PyInteger(23));
+    }
+
+    @Test
+    public void test7(){
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.exec("import sys");
+        interpreter.set("a", new PyString("hello"));
+        interpreter.exec("print a");
+
+        interpreter.cleanup();
+        PyObject x = interpreter.get("x");
+        System.out.println("x: " + x);
+
+        interpreter.exec("x = 2+2");
+        x = interpreter.get("x");
+        System.out.println("x: " + x);
+
+        System.out.println(interpreter.getLocals());
+        System.out.println(interpreter.getSystemState());
+    }
+
+    @Test
+    public void test8(){
+        PythonInterpreter interpreter = new PythonInterpreter();
+
+        interpreter.execfile("E:\\python\\add.py");
+
+// 第一个参数为期望获得的函数(变量)的名字，第二个参数为期望返回的对象类型
+
+        PyFunction pyFunction = interpreter.get("add", PyFunction.class);
+
+        int a = 5, b = 10;
+
+//调用函数，如果函数需要参数，在Java中必须先将参数转化为对应的“Python类型”
+
+        PyObject pyobj = pyFunction.__call__(new PyInteger(a), new PyInteger(b));
+
+        System.out.println("the anwser is: " + pyobj);
+
     }
 }
