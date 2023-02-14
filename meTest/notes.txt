@@ -1,0 +1,5 @@
+在使用struts2的json数据格式返回时，时间中含有T,去除T的方法：
+
+解决方法是：
+
+在实体类里面加上注解就可以了.@JSON(format="yyyy-MM-dd HH:mm:ss")
