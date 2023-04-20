@@ -57,11 +57,10 @@ public class ReportExport {
 
         // 定义记录行数和相同记录的开始行数
         int rownum = 1;
-        Map<String, Integer> startRowMap = new HashMap<String, Integer>();
 
         // 遍历report数据，写入Excel表格
         for (Report report : reportList) {
-            Row row = sheet.createRow(rownum++);
+            Row row = sheet.createRow(rownum);
             row.createCell(0).setCellValue(report.getTaskName());
             row.createCell(1).setCellValue(report.getStartTime());
             row.createCell(2).setCellValue(report.getIp());
@@ -72,21 +71,23 @@ public class ReportExport {
             row.getCell(3).setCellStyle(cellStyle);
 
             // 判断是否需要合并单元格
+            /**
+             * sheet 表示当前操作的工作表。
+             * addMergedRegion 是工作表的一个方法，用来将单元格进行合并。
+             * new org.apache.poi.ss.util.CellRangeAddress(startRow, rownum - 1, 0, 0)
+             * 表示要合并的单元格的范围，其中startRow表示起始行，rownum-1表示结束行，0表示起始列，0表示结束列。
+             */
             String key = report.getTaskName() + report.getStartTime();
-            if (startRowMap.containsKey(key)) {
-                int startRow = startRowMap.get(key);
-                /**
-                 * sheet 表示当前操作的工作表。
-                 * addMergedRegion 是工作表的一个方法，用来将单元格进行合并。
-                 * new org.apache.poi.ss.util.CellRangeAddress(startRow, rownum - 1, 0, 0)
-                 * 表示要合并的单元格的范围，其中startRow表示起始行，rownum-1表示结束行，0表示起始列，0表示结束列。
-                 */
-                sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(startRow, rownum - 1, 0, 0));
-                sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(startRow, rownum - 1, 1, 1));
-            } else {
-                startRowMap.put(key, rownum - 1);
+            if(rownum>1){
+                Row row1 = sheet.getRow(rownum-1);
+                if((row1.getCell(0).getStringCellValue()+row1.getCell(1).getStringCellValue()).equals(key)){
+                    sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(rownum-1, rownum, 1, 1));
+                    sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(rownum-1, rownum , 0, 0));
+                }
             }
+            rownum++;
         }
+
 
         // 调整列宽
         for (int i = 0; i < headers.length; i++) {
