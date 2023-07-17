@@ -45,6 +45,7 @@ public class StudentListGenerator {
         // 添加更多学生...
 
         root.put("students", students);
+        root.put("type", "Student");
 
         // 获取模板并处理
         Template temp = cfg.getTemplate("student_list.ftl");
