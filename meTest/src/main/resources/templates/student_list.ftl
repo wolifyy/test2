@@ -26,6 +26,18 @@
         </tr>
     </#list>
     </#if>
+    <#list students as student>
+        <tr>
+            <td>${student.name}</td>
+            <td>${student.gender}</td>
+            <td>${student.age}</td>
+        </tr>
+    </#list>
+    <h2>不及格的同学有:
+        <#list students as student>
+            ${student.name}<#sep>、</#sep>
+        </#list>
+    </h2>
 </table>
 </body>
 </html>

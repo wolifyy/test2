@@ -37,10 +37,15 @@ public class StudentListGenerator {
 
         List<Map<String, String>> students = new ArrayList<>();
         Map<String, String> student1 = new HashMap<>();
+        Map<String, String> student2 = new HashMap<>();
         student1.put("name", "小明");
         student1.put("gender", "男");
         student1.put("age", "7");
+        student2.put("name", "小王");
+        student2.put("gender", "男");
+        student2.put("age", "7");
         students.add(student1);
+        students.add(student2);
 
         // 添加更多学生...
 
